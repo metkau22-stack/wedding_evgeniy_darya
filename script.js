@@ -193,8 +193,8 @@ function initRsvpForm() {
     const attendance = (formData.get("attendance") || "").toString().trim();
     const plusOne = (formData.get("plus_one") || "").toString().trim();
     const drinks = formData.getAll("drinks");
-    const allergies = (formData.get("allergies") || "").toString().trim();
-    const notes = (formData.get("notes") || "").toString().trim();
+    const withChild = (formData.get("with_child") || "").toString().trim();
+    const secondDay = (formData.get("second_day") || "").toString().trim();
     const honey = (formData.get("_honey") || "").toString().trim();
 
     const payload = new FormData();
@@ -202,8 +202,8 @@ function initRsvpForm() {
     payload.append("Присутствие", attendance || "Не указано");
     payload.append("Спутник или спутница", plusOne || "Не указано");
     payload.append("Напитки", drinks.length ? drinks.join(", ") : "Не указано");
-    payload.append("Аллергии и ограничения", allergies || "Нет");
-    payload.append("Комментарий", notes || "Нет");
+    payload.append("Будет ли с вами ребёнок", withChild || "Не указано");
+    payload.append("Планируете ли остаться на 2 день свадьбы", secondDay || "Не указано");
     payload.append("_subject", `Анкета гостя: ${guestName || "без имени"}`);
     payload.append("_template", "table");
     payload.append("_url", window.location.href);
