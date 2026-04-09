@@ -322,6 +322,10 @@ button {
   margin-bottom: 28px;
 }
 
+.section-head--compact {
+  margin-bottom: 18px;
+}
+
 .section-kicker {
   margin: 0;
   color: rgba(66, 52, 44, 0.66);
@@ -669,15 +673,13 @@ button {
   padding: 24px;
 }
 
-.calendar-card__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 14px;
-  color: rgba(74, 59, 50, 0.74);
-  font-size: 0.76rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+.calendar-card__month {
+  margin: 0 0 20px;
+  text-align: center;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.5rem, 4.5vw, 3.6rem);
+  line-height: 0.94;
+  color: rgba(43, 33, 28, 0.96);
 }
 
 .calendar-card__weekdays,
@@ -706,6 +708,7 @@ button {
 }
 
 .calendar-card__days span {
+  position: relative;
   border-radius: 999px;
   background: rgba(255, 252, 248, 0.24);
   color: rgba(62, 49, 42, 0.82);
@@ -717,8 +720,21 @@ button {
 }
 
 .calendar-card__days .is-active {
-  background: linear-gradient(135deg, rgba(138, 107, 89, 0.98), rgba(104, 80, 68, 0.98));
-  color: #fff8f2;
+  background: transparent;
+  color: rgba(70, 49, 54, 0.96);
+  font-weight: 700;
+}
+
+.calendar-card__days .is-active::before {
+  content: "♡";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -54%);
+  color: var(--wine);
+  font-size: 1.9rem;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .venue-card {
