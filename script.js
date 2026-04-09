@@ -79,7 +79,7 @@ function initCalendarButtons() {
 }
 
 function initReveal() {
-  const items = document.querySelectorAll(".reveal");
+  const items = document.querySelectorAll(".reveal, [data-reveal]");
 
   if (!("IntersectionObserver" in window)) {
     items.forEach((item) => item.classList.add("is-visible"));
@@ -96,8 +96,8 @@ function initReveal() {
       });
     },
     {
-      threshold: 0.16,
-      rootMargin: "0px 0px -40px 0px",
+      threshold: 0.12,
+      rootMargin: "0px 0px -60px 0px",
     },
   );
 
