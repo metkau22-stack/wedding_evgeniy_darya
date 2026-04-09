@@ -498,11 +498,7 @@ button {
 }
 
 .hero-collage {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 132px;
-  gap: 18px;
-  align-items: end;
-  width: min(100%, 520px);
+  width: min(100%, 500px);
   margin-left: auto;
 }
 
@@ -543,6 +539,13 @@ button {
   background: transparent;
 }
 
+.showcase-card__gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 16px;
+  align-items: stretch;
+}
+
 .showcase-card__kicker {
   margin: 0;
   color: rgba(82, 69, 60, 0.66);
@@ -566,7 +569,7 @@ button {
 
 .showcase-card__image {
   overflow: hidden;
-  margin: 14px 0 0;
+  margin: 0;
   border-radius: 30px;
   border: 0;
   box-shadow: 0 18px 46px rgba(36, 25, 20, 0.18);
@@ -583,15 +586,18 @@ button {
 }
 
 .showcase-card__image img {
-  aspect-ratio: 1 / 1.04;
+  aspect-ratio: 1 / 1.08;
   object-position: center 34%;
 }
 
 .portrait-rail {
   display: grid;
-  gap: 14px;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 16px;
   align-self: stretch;
-  padding-bottom: 22px;
+  min-height: 100%;
+  padding-bottom: 0;
+  margin-left: 0;
 }
 
 .floating-portrait {
@@ -599,18 +605,18 @@ button {
   margin: 0;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 0.84 / 1;
+  height: 100%;
   border-radius: 28px;
   border: 0;
   box-shadow: 0 16px 34px rgba(36, 25, 20, 0.16);
 }
 
 .floating-portrait--left {
-  transform: translateX(-10px);
+  transform: none;
 }
 
 .floating-portrait--right {
-  transform: translateX(8px);
+  transform: none;
 }
 
 .floating-portrait--left img {
@@ -1034,15 +1040,18 @@ button {
   }
 
   .hero-collage {
-    grid-template-columns: 1fr;
     gap: 14px;
     width: min(100%, 360px);
     margin: 0 auto;
   }
 
+  .showcase-card__gallery {
+    grid-template-columns: 1fr;
+  }
+
   .portrait-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding-bottom: 0;
+    grid-template-rows: none;
   }
 
   .floating-portrait--left {
