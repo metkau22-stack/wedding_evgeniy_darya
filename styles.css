@@ -139,11 +139,14 @@ button {
   align-items: center;
   margin-top: 16px;
   padding: 12px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: var(--radius-pill);
-  background: rgba(255, 248, 242, 0.28);
-  backdrop-filter: blur(16px);
-  box-shadow: var(--shadow);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(24px) saturate(165%);
+  box-shadow:
+    0 16px 44px rgba(37, 27, 21, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.36);
 }
 
 .brand {
@@ -259,10 +262,12 @@ button {
   min-width: 220px;
   padding: 18px;
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   background: rgba(255, 248, 242, 0.3);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px) saturate(165%);
+  box-shadow:
+    0 16px 44px rgba(37, 27, 21, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px);
@@ -275,10 +280,11 @@ button {
   justify-content: center;
   min-height: 48px;
   padding: 12px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: var(--radius-pill);
-  background: rgba(255, 248, 242, 0.22);
-  backdrop-filter: blur(14px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(20px) saturate(160%);
   color: rgba(48, 37, 31, 0.96);
   font-size: 0.9rem;
   letter-spacing: 0.08em;
@@ -291,7 +297,9 @@ button {
 
 .button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(46, 35, 28, 0.08);
+  box-shadow:
+    0 14px 30px rgba(46, 35, 28, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .button--filled {
@@ -343,13 +351,27 @@ button {
   gap: 18px;
   max-width: 580px;
   padding: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 34px;
   background:
-    linear-gradient(135deg, rgba(255, 249, 244, 0.24), rgba(255, 249, 244, 0.08)),
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 45%);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 48px rgba(37, 27, 21, 0.08);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.14), transparent 42%);
+  backdrop-filter: blur(24px) saturate(170%);
+  box-shadow:
+    0 20px 52px rgba(37, 27, 21, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.36);
+}
+
+.hero__copy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 30%);
+  pointer-events: none;
 }
 
 .hero__title,
@@ -407,13 +429,34 @@ button {
 .glass-card {
   border: 1px solid var(--stroke);
   background: var(--glass);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px) saturate(170%);
+  box-shadow:
+    0 18px 52px rgba(37, 27, 21, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
 }
 
 .glass-card {
+  position: relative;
+  overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(255, 249, 244, 0.28), rgba(255, 249, 244, 0.18));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+}
+
+.glass-card::before,
+.countdown__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 55%);
+  pointer-events: none;
+}
+
+.glass-card > *,
+.countdown__item > * {
+  position: relative;
+  z-index: 1;
 }
 
 .countdown__item {
@@ -461,33 +504,18 @@ button {
 
 .showcase-card {
   position: relative;
-  overflow: hidden;
   width: 100%;
   margin-left: 0;
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 38px;
-  background: rgba(255, 248, 242, 0.18);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow);
-}
-
-.showcase-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 22% 22%, rgba(97, 79, 66, 0.1) 0 8%, transparent 9%),
-    radial-gradient(ellipse at 74% 36%, rgba(97, 79, 66, 0.08) 0 7%, transparent 8%);
-  filter: blur(8px);
-  opacity: 0.7;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
 .showcase-card__glow {
-  position: absolute;
-  inset: 18px;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: none;
 }
 
 .showcase-card__script {
@@ -504,11 +532,11 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 10px;
+  gap: 14px;
   min-height: 100%;
-  padding: 24px;
-  border-radius: 30px;
-  background: rgba(255, 249, 244, 0.28);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .showcase-card__kicker {
@@ -535,9 +563,9 @@ button {
 .showcase-card__image {
   overflow: hidden;
   margin: 14px 0 0;
-  border-radius: 24px;
-  border: 8px solid rgba(255, 250, 246, 0.5);
-  box-shadow: var(--shadow);
+  border-radius: 30px;
+  border: 0;
+  box-shadow: 0 18px 46px rgba(36, 25, 20, 0.18);
 }
 
 .showcase-card__image img,
@@ -569,8 +597,8 @@ button {
   width: 100%;
   aspect-ratio: 0.84 / 1;
   border-radius: 28px;
-  border: 8px solid rgba(255, 249, 244, 0.5);
-  box-shadow: var(--shadow);
+  border: 0;
+  box-shadow: 0 16px 34px rgba(36, 25, 20, 0.16);
 }
 
 .floating-portrait--left {
@@ -621,8 +649,9 @@ button {
 .invitation-card__photo {
   overflow: hidden;
   margin: 0;
-  border-radius: 26px;
-  border: 8px solid rgba(255, 249, 244, 0.4);
+  border-radius: 30px;
+  border: 0;
+  box-shadow: 0 18px 42px rgba(36, 25, 20, 0.15);
 }
 
 .invitation-card__photo img {
@@ -713,9 +742,11 @@ button {
   min-height: 280px;
   padding: 8px;
   border-radius: 26px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 252, 248, 0.14);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 12px 30px rgba(36, 25, 20, 0.08);
 }
 
 .map-frame iframe {
@@ -741,9 +772,10 @@ button {
 .timeline__image {
   overflow: hidden;
   margin: 0;
-  border-radius: 20px;
-  border: 8px solid rgba(255, 249, 244, 0.38);
-  background: rgba(255, 249, 244, 0.22);
+  border-radius: 18px;
+  border: 0;
+  background: transparent;
+  box-shadow: 0 12px 28px rgba(36, 25, 20, 0.12);
 }
 
 .timeline__image img {
@@ -805,7 +837,8 @@ button {
   overflow: hidden;
   margin: 0;
   border-radius: 28px;
-  border: 8px solid rgba(255, 249, 244, 0.38);
+  border: 0;
+  box-shadow: 0 18px 42px rgba(36, 25, 20, 0.15);
 }
 
 .dresscode-card__image img {
@@ -824,9 +857,9 @@ button {
   height: 56px;
   margin-left: -12px;
   border-radius: 50%;
-  border: 5px solid rgba(255, 249, 244, 0.6);
+  border: 5px solid rgba(255, 249, 244, 0.86);
   background: var(--swatch);
-  box-shadow: 0 10px 24px rgba(42, 31, 24, 0.05);
+  box-shadow: 0 10px 24px rgba(42, 31, 24, 0.08);
 }
 
 .rsvp-form {
@@ -876,11 +909,13 @@ button {
 .form-field textarea {
   width: 100%;
   padding: 14px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 18px;
-  background: rgba(255, 252, 248, 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.1));
   color: var(--text);
   outline: none;
+  backdrop-filter: blur(20px) saturate(160%);
 }
 
 .form-field input::placeholder,
