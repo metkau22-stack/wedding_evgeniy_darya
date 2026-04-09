@@ -29,11 +29,16 @@
         <div class="hero__copy reveal is-visible">
           <p class="section-kicker">wedding invitation</p>
           <p class="script-label">wedding day</p>
-          <h1 class="hero__title">
-            <span>Евгений</span>
-            <em>&amp;</em>
-            <span>Дарья</span>
-          </h1>
+          <div class="hero__title-stack">
+            </figure>
+            <h1 class="hero__title">
+              <span>Евгений</span>
+              <em>&amp;</em>
+              <span>Дарья</span>
+            </h1>
+            
+            </figure>
+          </div>
           <p class="hero__date">17 | 07 | 2026</p>
           <p class="hero__text">
             Будем счастливы разделить этот день вместе с вами и провести его в кругу
@@ -71,7 +76,6 @@
           <div class="hero-collage">
             <div class="showcase-card" data-reveal style="--reveal-delay: 120ms;">
               <div class="showcase-card__glow"></div>
-              <p class="showcase-card__script">с любовью</p>
               <div class="showcase-card__main">
                 <p class="showcase-card__kicker">save the date</p>
                 <h2>Евгений &amp; Дарья</h2>
@@ -80,15 +84,6 @@
                   <figure class="showcase-card__image">
                     <img src="assets/img/couple_picnic.jpg" alt="Евгений и Дарья">
                   </figure>
-
-                  <div class="portrait-rail">
-                    <figure class="floating-portrait floating-portrait--left">
-                      <img src="assets/img/bride_portrait.jpg" alt="Дарья">
-                    </figure>
-                    <figure class="floating-portrait floating-portrait--right">
-                      <img src="assets/img/groom_portrait.jpg" alt="Евгений">
-                    </figure>
-                  </div>
                 </div>
               </div>
             </div>
@@ -272,16 +267,19 @@
 
           <div class="dresscode-card__content">
             <p>
-              Нам будет очень приятно, если в своих образах вы поддержите нейтральные,
-              спокойные и приглушённые оттенки.
+              Будем благодарны, если Вы при выборе нарядов на наше
+              торжество придержитесь следующей палитре.
             </p>
             <div class="dresscode-card__palette" aria-label="Рекомендуемая палитра">
-              <span style="--swatch:#6e7459"></span>
-              <span style="--swatch:#9f582d"></span>
-              <span style="--swatch:#eedf9d"></span>
-              <span style="--swatch:#7a7d62"></span>
-              <span style="--swatch:#415750"></span>
-              <span style="--swatch:#6f5d56"></span>
+              <span style="--swatch:#89411e"></span>
+              <span style="--swatch:#eedca7"></span>
+              <span style="--swatch:#636850"></span>
+              <span style="--swatch:#364842"></span>
+              <span style="--swatch:#35271e"></span>
+              <span style="--swatch:#59473e"></span>
+              <p>
+              Это не запрет и органичение - это призыв к действию!
+            </p>
             </div>
           </div>
         </div>
@@ -300,8 +298,33 @@
               <p class="timeline__place">Евгений 8(916)696-59-56</p>
               <p class="timeline__place">Дарья 8(916)567-84-51</p>
               <p class="timeline__place">Мила "Ведущая мероприятия" 8(977)548-99-78</p>
+              <h2 class="section-title"></h2>
+              <h2 class="section-title"></h2>
+              <h2 class="section-title"></h2>
+              <h2 class="section-title">ПОДТВЕРЖДЕНИЕ</h2>
+              <p class="timeline__place">пожалуйста подтвердите своё присутствие до 01.07.2026</p>
+              <h2 class="section-title">Ждем Вас на свадьбе!</h2>
             </div>
           </article>
+
+          <div class="glass-card contact-card" data-reveal style="--reveal-delay: 200ms;">
+            <div class="contact-icon">
+              <p class="contact-card__eyebrow">общий канал гостей</p>
+              <h3>ВКонтакте</h3>
+
+              <a href="https://vk.ru/im/channels/-237530285" target="_blank" rel="noreferrer" class="contact-link">
+                <img src="вк.png" alt="Наша группа VK">
+                <span>Перейти в канал</span>
+              </a>
+
+              <p class="contact-card__text">
+                Мы создали общий канал, где будет вся важная информация о свадьбе, а также место для ваших фото и видео с нашего дня.
+                Пожалуйста, перейдите по ссылке и присоединяйтесь — нам очень важно сохранить эти моменты вашими глазами.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="section reveal" id="rsvp">
         <div class="section-head">
@@ -337,30 +360,43 @@
           <fieldset class="form-group">
             <legend>Что предпочитаете из напитков?</legend>
             <div class="choices-grid">
-              <label class="choice"><input type="checkbox" name="drinks" value="Коктейли"><span>Коктейли</span></label>
-              <label class="choice"><input type="checkbox" name="drinks" value="Безалкогольные напитки"><span>Безалкогольные</span></label>
-              <label class="choice"><input type="checkbox" name="drinks" value="Вино"><span>Вино</span></label>
-              <label class="choice"><input type="checkbox" name="drinks" value="Игристое"><span>Игристое</span></label>
-              <label class="choice"><input type="checkbox" name="drinks" value="Пиво"><span>Пиво</span></label>
-              <label class="choice"><input type="checkbox" name="drinks" value="Крепкий алкоголь"><span>Крепкий алкоголь</span></label>
+              <label class="choice"><input type="checkbox" name="drinks" value="Коктейли"><span>Красное вино</span></label>
+              <label class="choice"><input type="checkbox" name="drinks" value="Безалкогольные напитки"><span>Белое вино</span></label>
+              <label class="choice"><input type="checkbox" name="drinks" value="Вино"><span>Шанпанское</span></label>
+              <label class="choice"><input type="checkbox" name="drinks" value="Игристое"><span>Виски/Коньяк</span></label>
+              <label class="choice"><input type="checkbox" name="drinks" value="Пиво"><span>Водка</span></label>
+              <label class="choice"><input type="checkbox" name="drinks" value="Крепкий алкоголь"><span>Не буду пить алкоголь</span></label>
             </div>
           </fieldset>
 
-          <label class="form-field">
-            <span>Есть ли у вас пищевые аллергии или ограничения?</span>
-            <textarea name="allergies" rows="4" placeholder="Если да, напишите здесь"></textarea>
-          </label>
+          <fieldset class="form-group">
+            <legend>Будет ли с вами ребёнок</legend>
+            <label class="choice">
+              <input type="radio" name="attendance" value="Да, с удовольствием" required>
+              <span>Да</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="attendance" value="К сожалению, не смогу">
+              <span>Нет</span>
+            </label>
+          </fieldset>
 
-          <label class="form-field">
-            <span>Что-нибудь ещё, о чём нам стоит знать?</span>
-            <textarea name="notes" rows="4" placeholder="Ваш комментарий"></textarea>
-          </label>
+<fieldset class="form-group">
+            <legend>Планируете ли остатся на 2 день свадьбы</legend>
+            <label class="choice">
+              <input type="radio" name="attendance" value="Да, с удовольствием" required>
+              <span>Да</span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="attendance" value="К сожалению, не смогу">
+              <span>Нет</span>
+            </label>
+          </fieldset>
 
           <div class="rsvp-form__actions">
             <button class="button button--filled" type="submit">Отправить анкету</button>
             <p class="rsvp-form__note" data-form-status>
-              Анкета отправится автоматически без открытия почтового приложения.
-              Если это первая заявка, на metkau22@gmail.com придёт письмо для активации формы.
+              
             </p>
           </div>
         </form>
