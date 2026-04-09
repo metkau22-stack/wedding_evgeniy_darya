@@ -783,27 +783,14 @@ button {
 
 .timeline {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .timeline__item {
   display: grid;
-  gap: 18px;
-  padding: 20px 22px;
-}
-
-.timeline__image {
-  overflow: hidden;
-  margin: 0;
-  border-radius: 18px;
-  border: 0;
-  background: transparent;
-  box-shadow: 0 12px 28px rgba(36, 25, 20, 0.12);
-}
-
-.timeline__image img {
-  aspect-ratio: 1.45 / 1;
-  object-position: center 38%;
+  gap: 8px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .timeline__text {
@@ -830,30 +817,6 @@ button {
   font-size: 0.88rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-}
-
-.timeline__image--portrait img {
-  aspect-ratio: 1 / 1;
-}
-
-.timeline__image--couple img {
-  object-position: center 34%;
-}
-
-.timeline__image--groom img {
-  object-position: center 16%;
-}
-
-.timeline__image--bride img {
-  object-position: center 18%;
-}
-
-.timeline__image--banquet img {
-  object-position: center 50%;
-}
-
-.timeline__image--end img {
-  object-position: center 40%;
 }
 
 .dresscode-card__image {
@@ -1033,12 +996,8 @@ button {
   }
 
   .timeline__item {
-    grid-template-columns: 124px minmax(0, 1fr);
+    grid-template-columns: 1fr;
     align-items: start;
-  }
-
-  .timeline__image {
-    width: 124px;
   }
 }
 
