@@ -81,8 +81,16 @@ function initCalendarButtons() {
 function initReveal() {
   const items = document.querySelectorAll(".reveal, [data-reveal]");
 
+  function showItem(item) {
+    item.classList.add("is-visible");
+
+    item.querySelectorAll("[data-reveal], .reveal").forEach((child) => {
+      child.classList.add("is-visible");
+    });
+  }
+
   if (!("IntersectionObserver" in window)) {
-    items.forEach((item) => item.classList.add("is-visible"));
+    items.forEach(showItem);
     return;
   }
 
@@ -90,7 +98,7 @@ function initReveal() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+          showItem(entry.target);
           observer.unobserve(entry.target);
         }
       });
