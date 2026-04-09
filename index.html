@@ -19,46 +19,11 @@
 <body>
   <div class="video-background" aria-hidden="true">
     <video data-background-video autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture>
-      <source src="fon.mp4" type="video/mp4">
+      <source src="2fon.mp4" type="video/mp4">
     </video>
   </div>
 
   <div class="page-shell">
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Наверх">
-        <span class="brand__mark">ED</span>
-        <span class="brand__copy">
-          <strong>17 июля 2026</strong>
-          <span>свадебное приглашение</span>
-        </span>
-      </a>
-
-      <details class="mobile-menu">
-        <summary aria-label="Открыть меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </summary>
-        <nav class="mobile-menu__panel">
-          <a href="#welcome">Приглашение</a>
-          <a href="#location">Локация</a>
-          <a href="#schedule">Расписание</a>
-          <a href="#rsvp">Анкета</a>
-        </nav>
-      </details>
-
-      <nav class="desktop-nav" aria-label="Основная навигация">
-        <a href="#welcome">Приглашение</a>
-        <a href="#location">Локация</a>
-        <a href="#schedule">Расписание</a>
-        <a href="#rsvp">Анкета</a>
-      </nav>
-
-      <button class="button button--small" type="button" data-calendar-button>
-        Добавить в календарь
-      </button>
-    </header>
-
     <main id="top">
       <section class="hero section">
         <div class="hero__copy reveal is-visible">
@@ -150,7 +115,7 @@
           </div>
 
           <figure class="invitation-card__photo">
-            <img src="assets/img/couple_picnic.jpg" alt="Евгений и Дарья на прогулке">
+            <img src="assets/img/couple_kiss.jpg" alt="Евгений и Дарья на прогулке">
           </figure>
         </div>
       </section>
@@ -248,52 +213,47 @@
       <section class="section reveal" id="schedule">
         <div class="section-head">
           <p class="section-kicker">день по минутам</p>
-          <h2 class="section-title">Свадебное расписание</h2>
+          <h2 class="section-title">Timing</h2>
         </div>
 
         <div class="timeline">
           <article class="timeline__item" data-reveal style="--reveal-delay: 40ms;">
             <div class="timeline__text">
-              <p class="timeline__time">16:00</p>
-              <h3>Сбор гостей</h3>
-              <p class="timeline__place">Зал «Вернисаж»</p>
-              <p>Первые объятия, разговоры и настроение вечера начнутся именно здесь.</p>
+              <p class="timeline__time">17:30</p>
+              <h3>Фуршет | Сбор гостей </h3>
+              <p class="timeline__place">Зал «Вернисаж», веранда</p>
             </div>
           </article>
 
           <article class="timeline__item" data-reveal style="--reveal-delay: 120ms;">
             <div class="timeline__text">
-              <p class="timeline__time">17:00</p>
+              <p class="timeline__time">18:30</p>
               <h3>Торжественная регистрация</h3>
               <p class="timeline__place">Бережки Холл</p>
-              <p>Самый важный момент дня, который мы очень хотим разделить вместе с вами.</p>
-            </div>
-          </article>
-
-          <article class="timeline__item" data-reveal style="--reveal-delay: 200ms;">
-            <div class="timeline__text">
-              <p class="timeline__time">17:30</p>
-              <h3>Фотосессия</h3>
-              <p class="timeline__place">Территория комплекса</p>
-              <p>Пока фотограф ловит самые искренние кадры, у гостей будет время для отдыха.</p>
             </div>
           </article>
 
           <article class="timeline__item" data-reveal style="--reveal-delay: 280ms;">
             <div class="timeline__text">
-              <p class="timeline__time">18:30</p>
+              <p class="timeline__time">19:00</p>
               <h3>Праздничный банкет</h3>
-              <p class="timeline__place">Терраса ресторана</p>
-              <p>Тёплые тосты, музыка, танцы и вечер, который хочется запомнить во всех деталях.</p>
+              <p class="timeline__place">Зал «Вернисаж»</p>
+            </div>
+          </article>
+
+          <article class="timeline__item" data-reveal style="--reveal-delay: 280ms;">
+            <div class="timeline__text">
+              <p class="timeline__time">23:00</p>
+              <h3>Торт</h3>
+              <p class="timeline__place">Зал «Вернисаж»</p>
             </div>
           </article>
 
           <article class="timeline__item" data-reveal style="--reveal-delay: 360ms;">
             <div class="timeline__text">
-              <p class="timeline__time">23:00</p>
+              <p class="timeline__time">00:00</p>
               <h3>Окончание праздничного дня</h3>
               <p class="timeline__place">Терраса ресторана</p>
-              <p>Даже такой красивый день когда-то подходит к концу, чтобы остаться в памяти.</p>
             </div>
           </article>
         </div>
@@ -307,7 +267,7 @@
 
         <div class="glass-card dresscode-card" data-reveal>
           <figure class="dresscode-card__image">
-            <img src="assets/img/dresscode_photo.jpg" alt="Палитра дресс-кода">
+            <img src="assets/img/dresscode_palette.png" alt="Палитра дресс-кода">
           </figure>
 
           <div class="dresscode-card__content">
@@ -316,15 +276,32 @@
               спокойные и приглушённые оттенки.
             </p>
             <div class="dresscode-card__palette" aria-label="Рекомендуемая палитра">
-              <span style="--swatch:#5f6742"></span>
-              <span style="--swatch:#a7643f"></span>
-              <span style="--swatch:#d8c3ac"></span>
-              <span style="--swatch:#bba089"></span>
-              <span style="--swatch:#6f3140"></span>
+              <span style="--swatch:#6e7459"></span>
+              <span style="--swatch:#9f582d"></span>
+              <span style="--swatch:#eedf9d"></span>
+              <span style="--swatch:#7a7d62"></span>
+              <span style="--swatch:#415750"></span>
+              <span style="--swatch:#6f5d56"></span>
             </div>
           </div>
         </div>
       </section>
+      
+      <section class="section reveal" id="schedule">
+        <div class="section-head">
+          <p class="section-kicker">детали</p>
+          <h2 class="section-title">Details</h2>
+        </div>
+
+      <div class="timeline">
+  <article class="timeline__item" data-reveal style="--reveal-delay: 120ms;">
+            <div class="timeline__text">
+              <p class="timeline__place">Если Вы хотите сделать для нас сюрприз или уточнить детали тордежства, свяжитесь, пожалуйста, с нами. </p>
+              <p class="timeline__place">Евгений 8(916)696-59-56</p>
+              <p class="timeline__place">Дарья 8(916)567-84-51</p>
+              <p class="timeline__place">Мила "Ведущая мероприятия" 8(977)548-99-78</p>
+            </div>
+          </article>
 
       <section class="section reveal" id="rsvp">
         <div class="section-head">
