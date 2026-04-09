@@ -78,6 +78,46 @@ function initCalendarButtons() {
   });
 }
 
+function initBackgroundVideo() {
+  const video = document.querySelector("[data-background-video]");
+
+  if (!video) {
+    return;
+  }
+
+  const safePlay = () => {
+    const playPromise = video.play();
+
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
+  };
+
+  const restartVideo = () => {
+    if (Number.isFinite(video.duration) && video.duration > 0) {
+      video.currentTime = 0;
+    }
+
+    safePlay();
+  };
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.loop = true;
+  video.playsInline = true;
+
+  video.addEventListener("ended", restartVideo);
+  video.addEventListener("canplay", safePlay, { once: true });
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      safePlay();
+    }
+  });
+
+  safePlay();
+}
+
 function initReveal() {
   const items = document.querySelectorAll(".reveal, [data-reveal]");
 
@@ -205,6 +245,7 @@ function initRsvpForm() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+initBackgroundVideo();
 initCalendarButtons();
 initReveal();
 initMobileMenu();
