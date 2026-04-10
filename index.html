@@ -14,6 +14,7 @@
     href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
+  <link rel="preload" as="image" href="assets/img/couple_picnic.jpg">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -79,7 +80,7 @@
                 <p class="showcase-card__date">17 июля 2026</p>
                 <div class="showcase-card__gallery">
                   <figure class="showcase-card__image">
-                    <img src="assets/img/couple_picnic.jpg" alt="Евгений и Дарья">
+                    <img src="assets/img/couple_picnic.jpg" alt="Евгений и Дарья" decoding="async" fetchpriority="high">
                   </figure>
                 </div>
               </div>
@@ -107,7 +108,7 @@
           </div>
 
           <figure class="invitation-card__photo">
-            <img src="assets/img/couple_kiss.jpg" alt="Евгений и Дарья на прогулке">
+            <img src="assets/img/couple_kiss.jpg" alt="Евгений и Дарья на прогулке" loading="lazy" decoding="async">
           </figure>
         </div>
       </section>
@@ -259,7 +260,7 @@
 
         <div class="glass-card dresscode-card" data-reveal>
           <figure class="dresscode-card__image">
-            <img src="assets/img/dresscode_palette.png" alt="Палитра дресс-кода">
+            <img src="assets/img/dresscode_palette.png" alt="Палитра дресс-кода" loading="lazy" decoding="async">
           </figure>
 
           <div class="dresscode-card__content">
@@ -309,7 +310,7 @@
               <h3>ВКонтакте</h3>
 
               <a href="https://vk.ru/im/channels/-237530285" target="_blank" rel="noreferrer" class="contact-link">
-                <img src="вк.png" alt="Наша группа VK">
+                <img src="vk.png" alt="Наша группа VK" loading="lazy" decoding="async">
                 <span>Перейти в канал</span>
               </a>
 

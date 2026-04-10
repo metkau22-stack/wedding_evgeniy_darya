@@ -72,6 +72,7 @@ body::after {
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  pointer-events: none;
   background:
     radial-gradient(circle at 24% 20%, rgba(237, 240, 223, 0.14), transparent 24%),
     linear-gradient(130deg, #737763 0%, #515746 42%, #8c9078 100%);
@@ -84,6 +85,7 @@ body::after {
   opacity: 0.52;
   filter: saturate(0.68) contrast(0.96) brightness(0.8);
   transform: scale(1.04);
+  pointer-events: none;
 }
 
 .video-background::after {
@@ -297,6 +299,8 @@ button {
     transform 180ms ease,
     box-shadow 180ms ease,
     background-color 180ms ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .button:hover {
@@ -515,6 +519,18 @@ button {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  .site-header,
+  .mobile-menu__panel,
+  .button,
+  .glass-card,
+  .countdown__item {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(96, 103, 84, 0.55);
+  }
 }
 
 .hero__actions,
@@ -1110,6 +1126,12 @@ button {
 
 [data-reveal],
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.reveal-ready [data-reveal],
+html.reveal-ready .reveal {
   opacity: 0;
   transform: translateY(22px);
   transition:
@@ -1119,8 +1141,8 @@ button {
   will-change: opacity, transform;
 }
 
-[data-reveal].is-visible,
-.reveal.is-visible {
+html.reveal-ready [data-reveal].is-visible,
+html.reveal-ready .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1164,6 +1186,36 @@ button {
 }
 
 @media (max-width: 739px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::before {
+    filter: blur(12px);
+    opacity: 0.56;
+  }
+
+  .video-background video {
+    transform: none;
+    filter: saturate(0.58) contrast(0.92) brightness(0.78);
+  }
+
+  .video-background::after {
+    background: linear-gradient(180deg, rgba(28, 32, 22, 0.2) 0%, rgba(28, 32, 22, 0.12) 35%, rgba(28, 32, 22, 0.26) 100%);
+  }
+
+  .glass-card,
+  .countdown__item,
+  .button {
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+  }
+
+  html.reveal-ready [data-reveal],
+  html.reveal-ready .reveal {
+    transition-duration: 520ms;
+  }
+
   .section {
     padding: 68px 0;
   }

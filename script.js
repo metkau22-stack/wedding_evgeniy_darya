@@ -1,13 +1,15 @@
+document.documentElement.classList.add("reveal-ready");
+
 const weddingDate = new Date("2026-07-17T17:00:00+03:00");
 const targetEmail = "dashazhigalovasvadba@mail.ru";
 const formEndpoint = `https://formsubmit.co/ajax/${targetEmail}`;
 
 const countdownRoot = document.querySelector("[data-countdown]");
 const countdownUnits = {
-  days: countdownRoot?.querySelector('[data-unit="days"]'),
-  hours: countdownRoot?.querySelector('[data-unit="hours"]'),
-  minutes: countdownRoot?.querySelector('[data-unit="minutes"]'),
-  seconds: countdownRoot?.querySelector('[data-unit="seconds"]'),
+  days: countdownRoot ? countdownRoot.querySelector('[data-unit="days"]') : null,
+  hours: countdownRoot ? countdownRoot.querySelector('[data-unit="hours"]') : null,
+  minutes: countdownRoot ? countdownRoot.querySelector('[data-unit="minutes"]') : null,
+  seconds: countdownRoot ? countdownRoot.querySelector('[data-unit="seconds"]') : null,
 };
 
 function formatValue(value) {
@@ -16,6 +18,10 @@ function formatValue(value) {
 
 function updateCountdown() {
   if (!countdownRoot) {
+    return;
+  }
+
+  if (!countdownUnits.days || !countdownUnits.hours || !countdownUnits.minutes || !countdownUnits.seconds) {
     return;
   }
 
@@ -193,8 +199,8 @@ function initMobileMenu() {
 function initRsvpForm() {
   const form = document.querySelector("[data-rsvp-form]");
   const status = document.querySelector("[data-form-status]");
-  const submitButton = form?.querySelector('button[type="submit"]');
-  const initialButtonLabel = submitButton?.textContent ?? "";
+  const submitButton = form ? form.querySelector('button[type="submit"]') : null;
+  const initialButtonLabel = submitButton ? submitButton.textContent : "";
 
   if (!form) {
     return;
