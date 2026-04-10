@@ -909,6 +909,12 @@ button {
   overflow-wrap: anywhere;
 }
 
+.details-card__contact br {
+  display: block;
+  content: "";
+  margin-top: 4px;
+}
+
 .details-card__confirmation {
   display: grid;
   gap: 10px;
