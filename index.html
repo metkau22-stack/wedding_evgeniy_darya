@@ -14,7 +14,7 @@
     href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
-  <link rel="preload" as="image" href="assets/img/couple_picnic.jpg">
+  <link rel="preload" as="image" href="assets/img/couple_picnic-1080.jpg">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -80,7 +80,14 @@
                 <p class="showcase-card__date">17 июля 2026</p>
                 <div class="showcase-card__gallery">
                   <figure class="showcase-card__image">
-                    <img src="assets/img/couple_picnic.jpg" alt="Евгений и Дарья" decoding="async" fetchpriority="high">
+                    <img
+                      src="assets/img/couple_picnic-1080.jpg"
+                      srcset="assets/img/couple_picnic-1080.jpg 1080w, assets/img/couple_picnic-2048.jpg 2048w"
+                      sizes="(max-width: 739px) 92vw, 46vw"
+                      alt="Евгений и Дарья"
+                      decoding="async"
+                      fetchpriority="high"
+                    >
                   </figure>
                 </div>
               </div>
@@ -108,7 +115,14 @@
           </div>
 
           <figure class="invitation-card__photo">
-            <img src="assets/img/couple_kiss.jpg" alt="Евгений и Дарья на прогулке" loading="lazy" decoding="async">
+            <img
+              src="assets/img/couple_kiss-1080.jpg"
+              srcset="assets/img/couple_kiss-1080.jpg 1080w, assets/img/couple_kiss-2048.jpg 2048w"
+              sizes="(max-width: 739px) 92vw, 46vw"
+              alt="Евгений и Дарья на прогулке"
+              loading="lazy"
+              decoding="async"
+            >
           </figure>
         </div>
       </section>
@@ -260,7 +274,14 @@
 
         <div class="glass-card dresscode-card" data-reveal>
           <figure class="dresscode-card__image">
-            <img src="assets/img/dresscode_palette.png" alt="Палитра дресс-кода" loading="lazy" decoding="async">
+            <img
+              src="assets/img/dresscode_palette-768.jpg"
+              srcset="assets/img/dresscode_palette-768.jpg 768w, assets/img/dresscode_palette-1024.jpg 1024w"
+              sizes="(max-width: 739px) 88vw, 42vw"
+              alt="Палитра дресс-кода"
+              loading="lazy"
+              decoding="async"
+            >
           </figure>
 
           <div class="dresscode-card__content">
