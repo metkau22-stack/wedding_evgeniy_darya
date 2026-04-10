@@ -119,14 +119,38 @@ function initBackgroundVideo() {
 }
 
 function initReveal() {
+  const autoRevealGroups = [
+    [".section-head > *", 70],
+    [".showcase-card__main > *", 90],
+    [".invitation-card__text > *", 90],
+    [".venue-card > *:not(.venue-card__actions)", 80],
+    [".venue-card__actions > *", 90],
+    [".timeline__text > *", 70],
+    [".dresscode-card__content > *", 90],
+    [".details-card > *", 90],
+    [".details-card__contacts > *", 70],
+    [".details-card__confirmation > *", 90],
+    [".contact-icon > *", 90],
+    [".rsvp-form > *:not(.rsvp-form__actions)", 60],
+    [".rsvp-form__actions > *", 90],
+    [".site-footer > *", 100],
+  ];
+
+  autoRevealGroups.forEach(([selector, step]) => {
+    document.querySelectorAll(selector).forEach((item, index) => {
+      if (item.matches(".reveal, [data-reveal]")) {
+        return;
+      }
+
+      item.setAttribute("data-reveal", "");
+      item.style.setProperty("--reveal-delay", `${index * step}ms`);
+    });
+  });
+
   const items = document.querySelectorAll(".reveal, [data-reveal]");
 
   function showItem(item) {
     item.classList.add("is-visible");
-
-    item.querySelectorAll("[data-reveal], .reveal").forEach((child) => {
-      child.classList.add("is-visible");
-    });
   }
 
   if (!("IntersectionObserver" in window)) {
