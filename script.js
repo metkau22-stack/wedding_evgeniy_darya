@@ -1,3 +1,5 @@
+document.documentElement.classList.add("reveal-ready");
+
 const weddingDate = new Date("2026-07-17T17:00:00+03:00");
 const targetEmail = "dashazhigalovasvadba@mail.ru";
 const formEndpoint = `https://formsubmit.co/ajax/${targetEmail}`;
@@ -123,10 +125,6 @@ function initBackgroundVideo() {
 }
 
 function initReveal() {
-  if (!document.documentElement.classList.contains("reveal-ready")) {
-    return;
-  }
-
   const autoRevealGroups = [
     [".section-head > *", 70],
     [".showcase-card__main > *", 90],
