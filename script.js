@@ -1,5 +1,5 @@
 const weddingDate = new Date("2026-07-17T17:00:00+03:00");
-const targetEmail = "metkau22@gmail.com";
+const targetEmail = "dashazhigalovasvadba@mail.ru";
 const formEndpoint = `https://formsubmit.co/ajax/${targetEmail}`;
 
 const countdownRoot = document.querySelector("[data-countdown]");
@@ -255,8 +255,8 @@ function initRsvpForm() {
       if (status) {
         status.textContent =
           window.location.protocol === "file:"
-            ? "Автоотправка не сработала из локального файла. Откройте сайт через хостинг или локальный сервер и подтвердите первое письмо от FormSubmit на metkau22@gmail.com."
-            : "Не получилось отправить анкету автоматически. Проверьте подключение к интернету и подтвердите первое письмо от FormSubmit на metkau22@gmail.com.";
+            ? "Автоотправка не сработала из локального файла. Откройте сайт через хостинг или локальный сервер и подтвердите первое письмо от FormSubmit на dashazhigalovasvadba@mail.ru."
+            : "Не получилось отправить анкету автоматически. Проверьте подключение к интернету и подтвердите первое письмо от FormSubmit на dashazhigalovasvadba@mail.ru.";
       }
     } finally {
       if (submitButton) {
