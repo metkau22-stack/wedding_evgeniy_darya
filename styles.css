@@ -26,7 +26,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -35,6 +35,7 @@ body {
   position: relative;
   isolation: isolate;
   overflow-x: hidden;
+  touch-action: pan-y;
   color: var(--text);
   font-family: "Manrope", sans-serif;
   background: #71725f;
@@ -54,7 +55,7 @@ body::before {
     radial-gradient(ellipse at 14% 16%, rgba(245, 244, 226, 0.15) 0 11%, transparent 12%),
     radial-gradient(ellipse at 82% 12%, rgba(245, 244, 226, 0.11) 0 11%, transparent 12%),
     radial-gradient(circle at 50% 30%, rgba(57, 63, 45, 0.13), transparent 44%);
-  filter: blur(20px);
+  filter: blur(8px);
   opacity: 0.68;
 }
 
@@ -83,8 +84,8 @@ body::after {
   height: 100%;
   object-fit: cover;
   opacity: 0.52;
-  filter: saturate(0.68) contrast(0.96) brightness(0.8);
-  transform: scale(1.04);
+  filter: saturate(0.6) contrast(0.9) brightness(0.82);
+  transform: none;
   pointer-events: none;
 }
 
@@ -101,6 +102,12 @@ body::after {
 img {
   display: block;
   width: 100%;
+}
+
+.hero img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 a {
@@ -299,7 +306,7 @@ button {
     transform 180ms ease,
     box-shadow 180ms ease,
     background-color 180ms ease;
-  touch-action: manipulation;
+  touch-action: auto;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -358,6 +365,7 @@ button {
   align-items: center;
   min-height: clamp(640px, calc(100svh - 48px), 820px);
   padding-top: 18px;
+  touch-action: pan-y;
 }
 
 .hero__copy {
@@ -372,10 +380,12 @@ button {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.14), transparent 42%);
-  backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(135%);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
   box-shadow:
     0 20px 52px rgba(37, 27, 21, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.36);
+  touch-action: pan-y;
 }
 
 .hero__copy::before {
@@ -469,7 +479,8 @@ button {
 .glass-card {
   border: 1px solid var(--stroke);
   background: var(--glass);
-  backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(135%);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
   box-shadow:
     0 18px 52px rgba(37, 27, 21, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.34);
@@ -505,6 +516,7 @@ button {
   padding: 16px 8px;
   border-radius: 22px;
   text-align: center;
+  touch-action: pan-y;
 }
 
 .countdown__item strong {
@@ -1138,13 +1150,23 @@ html.reveal-ready .reveal {
     opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: auto;
 }
 
 html.reveal-ready [data-reveal].is-visible,
 html.reveal-ready .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Keep the first viewport fully interactive and visible immediately. */
+html.reveal-ready .hero .reveal,
+html.reveal-ready .hero [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition-duration: 0ms;
+  transition-delay: 0ms;
+  will-change: auto;
 }
 
 @media (min-width: 740px) {
