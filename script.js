@@ -3,6 +3,8 @@ document.documentElement.classList.add("reveal-ready");
 const weddingDate = new Date("2026-07-17T17:00:00+03:00");
 const targetEmail = "dashazhigalovasvadba@mail.ru";
 const formEndpoint = `https://formsubmit.co/ajax/${targetEmail}`;
+const formRequestTimeoutMs = 12000;
+const formRequestRetries = 1;
 
 const countdownRoot = document.querySelector("[data-countdown]");
 const countdownUnits = {
@@ -197,6 +199,73 @@ function initMobileMenu() {
   });
 }
 
+function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function sendRsvpPayload(payload) {
+  let lastError = null;
+
+  for (let attempt = 0; attempt <= formRequestRetries; attempt += 1) {
+    const controller = typeof AbortController === "function" ? new AbortController() : null;
+    const timeoutId = controller
+      ? window.setTimeout(() => controller.abort(), formRequestTimeoutMs)
+      : null;
+
+    try {
+      const response = await fetch(formEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: payload,
+        signal: controller ? controller.signal : undefined,
+      });
+
+      let responseJson = null;
+
+      try {
+        responseJson = await response.json();
+      } catch (parseError) {
+        responseJson = null;
+      }
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      if (
+        responseJson &&
+        Object.prototype.hasOwnProperty.call(responseJson, "success")
+      ) {
+        const isSuccess = responseJson.success === true || responseJson.success === "true";
+
+        if (!isSuccess) {
+          throw new Error(responseJson.message || "Submission was rejected");
+        }
+      }
+
+      return;
+    } catch (error) {
+      lastError = error;
+
+      if (attempt === formRequestRetries) {
+        break;
+      }
+
+      await wait(700 * (attempt + 1));
+    } finally {
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
+    }
+  }
+
+  throw lastError || new Error("Submission failed");
+}
+
 function initRsvpForm() {
   const form = document.querySelector("[data-rsvp-form]");
   const status = document.querySelector("[data-form-status]");
@@ -237,21 +306,12 @@ function initRsvpForm() {
     payload.append("Планируете ли остаться на 2 день свадьбы", secondDay || "Не указано");
     payload.append("_subject", `Анкета гостя: ${guestName || "без имени"}`);
     payload.append("_template", "table");
+    payload.append("_captcha", "false");
     payload.append("_url", window.location.href);
     payload.append("_honey", honey);
 
     try {
-      const response = await fetch(formEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: payload,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
+      await sendRsvpPayload(payload);
 
       form.reset();
 
