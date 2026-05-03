@@ -83,15 +83,10 @@ body::after {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
+  opacity: 0.48;
   filter: none;
   transform: none;
   pointer-events: none;
-  transition: opacity 700ms ease;
-}
-
-.video-background.is-playing video {
-  opacity: 0.48;
 }
 
 .video-background::after {
@@ -334,12 +329,6 @@ button {
 
 .section {
   padding: 90px 0;
-}
-
-.section:not(.hero),
-.site-footer {
-  content-visibility: auto;
-  contain-intrinsic-size: 900px;
 }
 
 .section-head {
@@ -1168,10 +1157,8 @@ button {
 html.reveal-ready [data-reveal],
 html.reveal-ready .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: none;
+  transition: opacity 420ms ease;
   transition-delay: var(--reveal-delay, 0ms);
   will-change: auto;
 }
@@ -1179,12 +1166,22 @@ html.reveal-ready .reveal {
 html.reveal-ready [data-reveal].is-visible,
 html.reveal-ready .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Keep the first viewport fully interactive and visible immediately. */
 html.reveal-ready .hero .reveal,
 html.reveal-ready .hero [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition-duration: 0ms;
+  transition-delay: 0ms;
+  will-change: auto;
+}
+
+html.reveal-ready #welcome,
+html.reveal-ready #welcome .reveal,
+html.reveal-ready #welcome [data-reveal] {
   opacity: 1;
   transform: none;
   transition-duration: 0ms;
@@ -1274,15 +1271,11 @@ html.reveal-ready .hero [data-reveal] {
 
   html.reveal-ready [data-reveal],
   html.reveal-ready .reveal {
-    transition-duration: 520ms;
+    transition-duration: 360ms;
   }
 
   .section {
     padding: 68px 0;
-  }
-
-  .section:not(.hero) {
-    contain-intrinsic-size: 760px;
   }
 
   .section-head {

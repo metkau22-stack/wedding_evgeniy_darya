@@ -1,4 +1,5 @@
-document.documentElement.classList.add("reveal-ready");
+const enableRevealAnimations = true;
+const revealInitDelayMs = 1800;
 
 const weddingDate = new Date("2026-07-17T17:00:00+03:00");
 const targetEmail = "dashazhigalovasvadba@mail.ru";
@@ -94,8 +95,6 @@ function initBackgroundVideo() {
   }
 
   const container = video.closest(".video-background");
-  let loadStarted = false;
-  let loadTimer = null;
 
   const safePlay = () => {
     const playPromise = video.play();
@@ -119,34 +118,6 @@ function initBackgroundVideo() {
     }
   };
 
-  const loadVideo = () => {
-    if (loadStarted) {
-      safePlay();
-      return;
-    }
-
-    loadStarted = true;
-
-    video.querySelectorAll("source[data-src]").forEach((source) => {
-      source.src = source.dataset.src;
-    });
-
-    video.load();
-    safePlay();
-  };
-
-  const scheduleLoad = (delay = 900) => {
-    if (loadStarted) {
-      return;
-    }
-
-    if (loadTimer !== null) {
-      window.clearTimeout(loadTimer);
-    }
-
-    loadTimer = window.setTimeout(loadVideo, delay);
-  };
-
   video.muted = true;
   video.defaultMuted = true;
   video.loop = true;
@@ -158,57 +129,27 @@ function initBackgroundVideo() {
   video.addEventListener("canplay", safePlay);
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && loadStarted) {
+    if (!document.hidden) {
       safePlay();
     }
   });
 
-  const welcomeSection = document.querySelector("#welcome");
-
-  if ("IntersectionObserver" in window && welcomeSection) {
-    const videoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            scheduleLoad(600);
-            videoObserver.disconnect();
-          }
-        });
-      },
-      {
-        threshold: 0.04,
-        rootMargin: "0px 0px 180px 0px",
-      },
-    );
-
-    videoObserver.observe(welcomeSection);
-  } else {
-    window.addEventListener("scroll", () => scheduleLoad(1200), { once: true, passive: true });
-  }
-
-  if (document.readyState === "complete") {
-    scheduleLoad(7000);
-  } else {
-    window.addEventListener("load", () => scheduleLoad(7000), { once: true });
-  }
+  safePlay();
 }
 
 function initReveal() {
+  if (document.documentElement.classList.contains("reveal-ready")) {
+    return;
+  }
+
   const autoRevealGroups = [
-    [".section-head > *", 70],
-    [".showcase-card__main > *", 90],
-    [".invitation-card__text > *", 90],
-    [".venue-card > *:not(.venue-card__actions)", 80],
-    [".venue-card__actions > *", 90],
-    [".timeline__text > *", 70],
-    [".dresscode-card__content > *", 90],
-    [".details-card > *", 90],
-    [".details-card__contacts > *", 70],
-    [".details-card__confirmation > *", 90],
-    [".contact-icon > *", 90],
-    [".rsvp-form > *:not(.rsvp-form__actions)", 60],
-    [".rsvp-form__actions > *", 90],
-    [".site-footer > *", 100],
+    ["#location .section-head > *", 50],
+    ["#schedule .timeline__item", 60],
+    [".dresscode-card", 80],
+    ["#details .details-card", 80],
+    ["#details .contact-card", 100],
+    ["#rsvp .rsvp-form", 80],
+    [".site-footer", 100],
   ];
 
   autoRevealGroups.forEach(([selector, step]) => {
@@ -223,11 +164,25 @@ function initReveal() {
   });
 
   const items = Array.from(document.querySelectorAll(".reveal, [data-reveal]"))
-    .filter((item) => !item.closest(".hero"));
+    .filter((item) => !item.closest(".hero") && !item.closest("#welcome"));
 
   function showItem(item) {
     item.classList.add("is-visible");
   }
+
+  function isAlreadyInView(item) {
+    const rect = item.getBoundingClientRect();
+
+    return rect.top < window.innerHeight * 0.88;
+  }
+
+  items.forEach((item) => {
+    if (isAlreadyInView(item)) {
+      showItem(item);
+    }
+  });
+
+  document.documentElement.classList.add("reveal-ready");
 
   if (!("IntersectionObserver" in window)) {
     items.forEach(showItem);
@@ -249,7 +204,28 @@ function initReveal() {
     },
   );
 
-  items.forEach((item) => observer.observe(item));
+  items.forEach((item) => {
+    if (!item.classList.contains("is-visible")) {
+      observer.observe(item);
+    }
+  });
+}
+
+function scheduleRevealAnimations() {
+  if (!enableRevealAnimations) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    const startReveal = () => initReveal();
+
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(startReveal, { timeout: 1200 });
+      return;
+    }
+
+    startReveal();
+  }, revealInitDelayMs);
 }
 
 function initMobileMenu() {
@@ -405,6 +381,6 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 initBackgroundVideo();
 initCalendarButtons();
-initReveal();
+scheduleRevealAnimations();
 initMobileMenu();
 initRsvpForm();
