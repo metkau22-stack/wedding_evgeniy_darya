@@ -93,6 +93,10 @@ function initBackgroundVideo() {
     return;
   }
 
+  const container = video.closest(".video-background");
+  let loadStarted = false;
+  let loadTimer = null;
+
   const safePlay = () => {
     const playPromise = video.play();
 
@@ -109,21 +113,84 @@ function initBackgroundVideo() {
     safePlay();
   };
 
+  const markPlaying = () => {
+    if (container) {
+      container.classList.add("is-playing");
+    }
+  };
+
+  const loadVideo = () => {
+    if (loadStarted) {
+      safePlay();
+      return;
+    }
+
+    loadStarted = true;
+
+    video.querySelectorAll("source[data-src]").forEach((source) => {
+      source.src = source.dataset.src;
+    });
+
+    video.load();
+    safePlay();
+  };
+
+  const scheduleLoad = (delay = 900) => {
+    if (loadStarted) {
+      return;
+    }
+
+    if (loadTimer !== null) {
+      window.clearTimeout(loadTimer);
+    }
+
+    loadTimer = window.setTimeout(loadVideo, delay);
+  };
+
   video.muted = true;
   video.defaultMuted = true;
   video.loop = true;
   video.playsInline = true;
 
   video.addEventListener("ended", restartVideo);
-  video.addEventListener("canplay", safePlay, { once: true });
+  video.addEventListener("loadeddata", markPlaying, { once: true });
+  video.addEventListener("playing", markPlaying);
+  video.addEventListener("canplay", safePlay);
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
+    if (!document.hidden && loadStarted) {
       safePlay();
     }
   });
 
-  safePlay();
+  const welcomeSection = document.querySelector("#welcome");
+
+  if ("IntersectionObserver" in window && welcomeSection) {
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            scheduleLoad(600);
+            videoObserver.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.04,
+        rootMargin: "0px 0px 180px 0px",
+      },
+    );
+
+    videoObserver.observe(welcomeSection);
+  } else {
+    window.addEventListener("scroll", () => scheduleLoad(1200), { once: true, passive: true });
+  }
+
+  if (document.readyState === "complete") {
+    scheduleLoad(7000);
+  } else {
+    window.addEventListener("load", () => scheduleLoad(7000), { once: true });
+  }
 }
 
 function initReveal() {
