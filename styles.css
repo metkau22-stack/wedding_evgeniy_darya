@@ -44,7 +44,7 @@ body {
 body::before,
 body::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
@@ -334,6 +334,12 @@ button {
 
 .section {
   padding: 90px 0;
+}
+
+.section:not(.hero),
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
 }
 
 .section-head {
@@ -1229,6 +1235,15 @@ html.reveal-ready .hero [data-reveal] {
     scroll-behavior: auto;
   }
 
+  body {
+    touch-action: auto;
+  }
+
+  .video-background {
+    position: absolute;
+    min-height: 100svh;
+  }
+
   body::before {
     filter: none;
     opacity: 0.56;
@@ -1266,6 +1281,10 @@ html.reveal-ready .hero [data-reveal] {
     padding: 68px 0;
   }
 
+  .section:not(.hero) {
+    contain-intrinsic-size: 760px;
+  }
+
   .section-head {
     gap: 8px;
     margin-bottom: 22px;
@@ -1278,7 +1297,10 @@ html.reveal-ready .hero [data-reveal] {
 
   .hero {
     min-height: auto;
-    padding-top: 8px;
+    gap: 22px;
+    padding-top: 20px;
+    padding-bottom: 42px;
+    touch-action: auto;
   }
 
   .hero__visual {
@@ -1289,6 +1311,7 @@ html.reveal-ready .hero [data-reveal] {
   .hero__copy {
     padding: 20px 18px;
     border-radius: 28px;
+    touch-action: auto;
   }
 
   .hero__title-stack {
@@ -1304,6 +1327,19 @@ html.reveal-ready .hero [data-reveal] {
     gap: 14px;
     width: min(100%, 360px);
     margin: 0 auto;
+  }
+
+  .showcase-card__main {
+    gap: 10px;
+  }
+
+  .showcase-card__main h2 {
+    font-size: clamp(2.35rem, 12vw, 3.4rem);
+  }
+
+  .showcase-card__image img {
+    aspect-ratio: 1 / 0.92;
+    object-position: 54% 68%;
   }
 
   .showcase-card__gallery {
