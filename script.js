@@ -13,6 +13,14 @@ const emailjsPublicKey = "K0dTjgHHXCK_EuvQf";   // provided by user
 
 // Note: FormSubmit fallback removed. EmailJS is now the primary submission method.
 
+// Initialize EmailJS SDK once (SDK v4 expects an object with publicKey)
+if (typeof emailjs !== "undefined" && emailjs.init) {
+  emailjs.init({ publicKey: emailjsPublicKey });
+} else {
+  console.error("EmailJS SDK not loaded. Include the EmailJS script in index.html.");
+  throw new Error("EmailJS SDK not loaded");
+}
+
 const countdownRoot = document.querySelector("[data-countdown]");
 const countdownUnits = {
   days: countdownRoot ? countdownRoot.querySelector('[data-unit="days"]') : null,
@@ -266,18 +274,25 @@ async function sendRsvpPayload(payload) {
     throw new Error("EmailJS configuration missing");
   }
 
-  // Convert FormData to plain object for EmailJS
-  const templateParams = {};
-  for (const [key, value] of payload.entries()) {
-    if (Array.isArray(value)) {
-      templateParams[key] = value.join(", ");
-    } else {
-      templateParams[key] = value;
-    }
-  }
+  // Convert FormData to plain object for EmailJS using the variable names expected by the template
+  const templateParams = {
+    guest_name: guestName || "Не указано",
+    attendance: attendance || "Не указано",
+    plus_one: plusOne || "Не указано",
+    drinks: drinks.length ? drinks.join(", ") : "Не указано",
+    with_child: withChild || "Не указано",
+    second_day: secondDay || "Не указано",
+    // Optional fields that EmailJS may use
+    _subject: `Анкета гостя: ${guestName || "без имени"}`,
+    _template: "table",
+    _captcha: "false",
+    _url: window.location.href,
+    _honey: honey,
+  };
 
   if (typeof emailjs !== "undefined" && emailjs.init) {
-    emailjs.init(emailjsPublicKey);
+    // For EmailJS SDK v4, init expects an object with publicKey.
+    emailjs.init({ publicKey: emailjsPublicKey });
   } else {
     console.error("EmailJS SDK not loaded. Include the EmailJS script in index.html.");
     throw new Error("EmailJS SDK not loaded");
@@ -324,39 +339,40 @@ function initRsvpForm() {
     const secondDay = (formData.get("second_day") || "").toString().trim();
     const honey = (formData.get("_honey") || "").toString().trim();
 
-    const payload = new FormData();
-    payload.append("Имя гостя", guestName || "Не указано");
-    payload.append("Присутствие", attendance || "Не указано");
-    payload.append("Спутник или спутница", plusOne || "Не указано");
-    payload.append("Напитки", drinks.length ? drinks.join(", ") : "Не указано");
-    payload.append("Будет ли с вами ребёнок", withChild || "Не указано");
-    payload.append("Планируете ли остаться на 2 день свадьбы", secondDay || "Не указано");
-    payload.append("_subject", `Анкета гостя: ${guestName || "без имени"}`);
-    payload.append("_template", "table");
-    payload.append("_captcha", "false");
-    payload.append("_url", window.location.href);
-    payload.append("_honey", honey);
+    // Build the object that matches the EmailJS template variable names
+    const templateParams = {
+      guest_name: guestName || "Не указано",
+      attendance: attendance || "Не указано",
+      plus_one: plusOne || "Не указано",
+      drinks: drinks.length ? drinks.join(", ") : "Не указано",
+      with_child: withChild || "Не указано",
+      second_day: secondDay || "Не указано",
+      _subject: `Анкета гостя: ${guestName || "без имени"}`,
+      _template: "table",
+      _captcha: "false",
+      _url: window.location.href,
+      _honey: honey,
+    };
 
     try {
-      await sendRsvpPayload(payload);
+      // Directly send the prepared parameters to EmailJS
+      await emailjs.send(emailjsServiceId, emailjsTemplateId, templateParams);
 
       form.reset();
 
       if (status) {
         status.textContent = "Анкета отправлена. Спасибо, мы всё получили.";
       }
-      } catch (error) {
-        if (status) {
-          // Provide a generic EmailJS error message and include the actual error details for debugging.
-          const baseMessage =
-            window.location.protocol === "file:"
-              ? "Автоотправка не сработала из локального файла. Откройте сайт через хостинг или локальный сервер и проверьте настройки EmailJS."
-              : "Не удалось отправить анкету через EmailJS. Проверьте подключение к интернету и настройки EmailJS.";
-          // Append error information (message and, if available, status code) to the status element.
-          const errorInfo = error && error.text ? error.text : error.message || String(error);
-          status.textContent = `${baseMessage} Ошибка: ${errorInfo}`;
-        }
-      } finally {
+    } catch (error) {
+      if (status) {
+        const baseMessage =
+          window.location.protocol === "file:"
+            ? "Автоотправка не сработала из локального файла. Откройте сайт через хостинг или локальный сервер и проверьте настройки EmailJS."
+            : "Не удалось отправить анкету через EmailJS. Проверьте подключение к интернету и настройки EmailJS.";
+        const errorInfo = error && error.text ? error.text : error.message || String(error);
+        status.textContent = `${baseMessage} Ошибка: ${errorInfo}`;
+      }
+    } finally {
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.textContent = initialButtonLabel;

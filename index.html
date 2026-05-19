@@ -428,7 +428,13 @@
   </div>
 
   <!-- EmailJS SDK (compatible version) -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      // Initialize EmailJS with the public key defined in script.js
+      emailjs.init({ publicKey: "K0dTjgHHXCK_EuvQf" });
+    })();
+  </script>
   <script src="script.js?v=20260503d"></script>
 </body>
 </html>
