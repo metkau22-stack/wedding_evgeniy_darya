@@ -345,14 +345,18 @@ function initRsvpForm() {
       if (status) {
         status.textContent = "Анкета отправлена. Спасибо, мы всё получили.";
       }
-    } catch (error) {
-      if (status) {
-        status.textContent =
-          window.location.protocol === "file:"
-            ? "Автоотправка не сработала из локального файла. Откройте сайт через хостинг или локальный сервер и подтвердите первое письмо от FormSubmit на dashazhigalovasvadba@mail.ru."
-            : "Не получилось отправить анкету автоматически. Проверьте подключение к интернету и подтвердите первое письмо от FormSubmit на dashazhigalovasvadba@mail.ru.";
-      }
-    } finally {
+      } catch (error) {
+        if (status) {
+          // Provide a generic EmailJS error message and include the actual error details for debugging.
+          const baseMessage =
+            window.location.protocol === "file:"
+              ? "Автоотправка не сработала из локального файла. Откройте сайт через хостинг или локальный сервер и проверьте настройки EmailJS."
+              : "Не удалось отправить анкету через EmailJS. Проверьте подключение к интернету и настройки EmailJS.";
+          // Append error information (message and, if available, status code) to the status element.
+          const errorInfo = error && error.text ? error.text : error.message || String(error);
+          status.textContent = `${baseMessage} Ошибка: ${errorInfo}`;
+        }
+      } finally {
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.textContent = initialButtonLabel;
