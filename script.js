@@ -2,10 +2,16 @@ const enableRevealAnimations = true;
 const revealInitDelayMs = 1800;
 
 const weddingDate = new Date("2026-07-17T17:00:00+03:00");
-const targetEmail = "dashazhigalovasvadba@mail.ru";
-const formEndpoint = `https://formsubmit.co/ajax/${targetEmail}`;
-const formRequestTimeoutMs = 12000;
-const formRequestRetries = 1;
+// EmailJS configuration
+// Service ID (provided by the user)
+const emailjsServiceId = "service_el8jd7e";
+// TODO: replace the placeholders below with your actual EmailJS template ID and public key.
+// You can obtain them in the EmailJS dashboard after creating a service and a template.
+// Replace with your actual EmailJS template ID and public key.
+const emailjsTemplateId = "template_849m5yd"; // provided by user
+const emailjsPublicKey = "K0dTjgHHXCK_EuvQf";   // provided by user
+
+// Note: FormSubmit fallback removed. EmailJS is now the primary submission method.
 
 const countdownRoot = document.querySelector("[data-countdown]");
 const countdownUnits = {
@@ -248,65 +254,43 @@ function wait(ms) {
   });
 }
 
+/**
+ * Sends the RSVP payload using EmailJS.
+ * The function aborts if EmailJS configuration is missing.
+ */
 async function sendRsvpPayload(payload) {
-  let lastError = null;
+  if (emailjsTemplateId === "YOUR_TEMPLATE_ID" || emailjsPublicKey === "YOUR_PUBLIC_KEY") {
+    console.warn(
+      "EmailJS integration is not configured. Please set emailjsTemplateId and emailjsPublicKey.",
+    );
+    throw new Error("EmailJS configuration missing");
+  }
 
-  for (let attempt = 0; attempt <= formRequestRetries; attempt += 1) {
-    const controller = typeof AbortController === "function" ? new AbortController() : null;
-    const timeoutId = controller
-      ? window.setTimeout(() => controller.abort(), formRequestTimeoutMs)
-      : null;
-
-    try {
-      const response = await fetch(formEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: payload,
-        signal: controller ? controller.signal : undefined,
-      });
-
-      let responseJson = null;
-
-      try {
-        responseJson = await response.json();
-      } catch (parseError) {
-        responseJson = null;
-      }
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-
-      if (
-        responseJson &&
-        Object.prototype.hasOwnProperty.call(responseJson, "success")
-      ) {
-        const isSuccess = responseJson.success === true || responseJson.success === "true";
-
-        if (!isSuccess) {
-          throw new Error(responseJson.message || "Submission was rejected");
-        }
-      }
-
-      return;
-    } catch (error) {
-      lastError = error;
-
-      if (attempt === formRequestRetries) {
-        break;
-      }
-
-      await wait(700 * (attempt + 1));
-    } finally {
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
-      }
+  // Convert FormData to plain object for EmailJS
+  const templateParams = {};
+  for (const [key, value] of payload.entries()) {
+    if (Array.isArray(value)) {
+      templateParams[key] = value.join(", ");
+    } else {
+      templateParams[key] = value;
     }
   }
 
-  throw lastError || new Error("Submission failed");
+  if (typeof emailjs !== "undefined" && emailjs.init) {
+    emailjs.init(emailjsPublicKey);
+  } else {
+    console.error("EmailJS SDK not loaded. Include the EmailJS script in index.html.");
+    throw new Error("EmailJS SDK not loaded");
+  }
+
+  try {
+    const result = await emailjs.send(emailjsServiceId, emailjsTemplateId, templateParams);
+    console.log("EmailJS send result:", result);
+    return;
+  } catch (error) {
+    console.error("EmailJS send error:", error);
+    throw error;
+  }
 }
 
 function initRsvpForm() {
